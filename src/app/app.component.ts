@@ -12,13 +12,28 @@ export class AppComponent implements OnInit {
   buffer;
   player;
 
+  selectedFile: File;
+  dropZoneActive = false;
+
+  dropText = 'Drop your track here';
+
   ngOnInit() {  }
+
+  handleDrop(file: File) {
+    this.selectedFile = file;
+    this.useAudio();
+    this.dropText = file.name;
+  }
+
+  dropzoneState($event: boolean) {
+    this.dropZoneActive = $event;
+  }
 
   useAudio() {
 
     this.player = null;
 
-    const selectedFile = (document.getElementById('audio-input') as HTMLInputElement).files[0];
+    // const selectedFile = (document.getElementById('audio-input') as HTMLInputElement).files[0];
     const reader = new FileReader();
     const audioContext = new AudioContext();
 
@@ -31,7 +46,7 @@ export class AppComponent implements OnInit {
       });
     };
 
-    reader.readAsArrayBuffer(selectedFile);
+    reader.readAsArrayBuffer(this.selectedFile);
 
   }
 

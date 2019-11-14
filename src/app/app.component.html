@@ -3,17 +3,21 @@
   <main>
 
     <div id="drop-container">
-      <input type="file" id="audio-input" (change)="useAudio()">
+      <!-- <input type="file" id="audio-input" (change)="useAudio()"> -->
       <div id="dropzone"
-        ngfDrop >
-
-        Drop a song here or click to select one
+        appFileDrop
+        (fileDropped)="handleDrop($event)"
+        (fileHovered)="dropzoneState($event)"
+        [ngClass]="{'active': dropzoneActive }"
+        >
+        {{ dropText }}
       </div>
+
     </div>
 
 
     <div id="controls">
-      +++
+      <button id="activate">Go go gooosloo</button>
     </div>
 
 
