@@ -12,13 +12,69 @@ export class AppComponent implements OnInit {
   buffer;
   player;
 
+  file: File;
+  dropzoneHover = false;
+  dropzoneActive = true;
+  dropzoneInvalid = false;
+  trackName: string;
+
   ngOnInit() {  }
 
-  useAudio() {
+  handleDrop(file: File) {
+    this.file = file;
+    this.playAudio();
+  }
 
-    this.player = null;
+  dropzoneState($event: boolean) {
+    this.dropzoneHover = $event;
+  }
 
-    const selectedFile = (document.getElementById('audio-input') as HTMLInputElement).files[0];
+  dropzoneFileState($event: boolean) {
+    this.dropzoneInvalid = $event;
+  }
+
+  onDropzoneClick() {
+
+    if (!this.dropzoneActive) {
+      this.dropzoneActive = true;
+      this.dropzoneText = 'Drop your track here';
+    } else {
+      this.openFileSelector();
+    }
+
+  }
+
+  openFileSelector() {
+    const fileSelector = document.createElement('input');
+    fileSelector.type = 'file';
+    fileSelector.accept = 'audio/mpeg, audio/wave';
+
+    // Set selectedfile to first chosen file from file selector
+    fileSelector.onchange = () => {
+      this.dropzoneInvalid = false;
+      const file = fileSelector.files[0];
+      this.file = file;
+      this.playAudio();
+    };
+
+    fileSelector.click();
+  }
+
+  setTrackName(name: string) {
+    this.trackName = name.substring(0, name.length - 4); // remove file extension form name
+  }
+
+  playAudio() {
+
+    this.setTrackName(this.file.name);
+    this.dropzoneActive = false;
+
+    // If a player instance already exists, it is disposed.
+    if (this.player) {
+      this.player.dispose();
+    }
+
+    // const selectedFile = (document.getElementById('audio-input') as HTMLInputElement).files[0];
     const reader = new FileReader();
     const audioContext = new AudioContext();
 
@@ -31,7 +87,7 @@ export class AppComponent implements OnInit {
       });
     };
 
-    reader.readAsArrayBuffer(selectedFile);
+    reader.readAsArrayBuffer(this.file);
 
   }
 
