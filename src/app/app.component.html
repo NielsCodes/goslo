@@ -27,7 +27,14 @@
 
 
     <div id="controls" [ngClass]="{'active': file }">
+
       <h1 id="track-title">{{ trackName }}</h1>
+
+      <button id="player-toggle-btn" (click)="toggleAudio()">
+        <img src="assets/stop.svg" alt="pause button" title="Stop playing music" *ngIf="isPlaying">
+        <img src="assets/play_arrow.svg" alt="play button" title="Start playing music" *ngIf="!isPlaying">
+      </button>
+
     </div>
 
 
