@@ -10,3 +10,33 @@
 html, body
   background: #000000
   color: #ffffff
+
+#page-container
+  width: 100vw
+  height: 100vh
+
+  main
+    height: 90vh
+    width: 80vw
+    max-width: 1000px
+    margin: 10vh auto 0 auto
+    display: flex
+    flex-direction: column
+
+    #drop-container
+      flex: 1
+
+      #dropzone
+        border: 2px dashed #666
+        height: 100%
+        display: flex
+        align-items: center
+        justify-content: center
+
+    #controls
+      flex: 0
+
+    #logo-container
+      font-size: 10em
+      text-align: center
+      padding-top: 100px
