@@ -21,6 +21,7 @@
     "@angular/router": "~8.2.4",
     "angular-file": "^2.0.0",
     "rxjs": "~6.4.0",
+    "tone": "^13.8.25",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
