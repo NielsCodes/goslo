@@ -23,7 +23,10 @@ export class AppComponent implements OnInit {
   trackName: string;
   isPlaying = true;
 
-  ngOnInit() {  }
+  windowInnerHeight = `${window.innerHeight}px`;
+  // windowInnerHeight = '100px';
+
+  ngOnInit() { }
 
   handleDrop(file: File) {
     this.file = file;
@@ -70,7 +73,6 @@ export class AppComponent implements OnInit {
 
   toggleAudio() {
     if (this.isPlaying) {
-      // console.log(this.player.buffer)
       this.player.stop();
       this.isPlaying = false;
     } else {
@@ -101,7 +103,6 @@ export class AppComponent implements OnInit {
         this.player.start();
         this.isPlaying = true;
         this.ref.detectChanges();
-        console.log(this.isPlaying);
       });
     };
 

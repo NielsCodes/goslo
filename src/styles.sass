@@ -13,13 +13,14 @@ html, body
 
 #page-container
   width: 100vw
-  height: 100vh
+  position: absolute
 
   main
-    height: 90vh
+    height: 90%
     width: 80vw
     max-width: 1000px
-    margin: 10vh auto 0 auto
+    margin: 0 auto
+    margin-top: 5vh
     display: flex
     flex-direction: column
 
@@ -66,7 +67,7 @@ html, body
       transition: all .2s ease
 
       &.active
-        padding: 100px
+        padding: 100px 0
         flex: 1
         opacity: 1
         user-select: auto
