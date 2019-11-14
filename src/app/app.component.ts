@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import * as Tone from 'tone';
 
@@ -9,6 +9,8 @@ import * as Tone from 'tone';
 })
 export class AppComponent implements OnInit {
 
+  constructor(private ref: ChangeDetectorRef) {}
+
   buffer;
   player;
 
@@ -16,7 +18,10 @@ export class AppComponent implements OnInit {
   dropzoneHover = false;
   dropzoneActive = true;
   dropzoneInvalid = false;
+
+  // Control variables
   trackName: string;
+  isPlaying = true;
 
   ngOnInit() {  }
 
@@ -37,7 +42,6 @@ export class AppComponent implements OnInit {
 
     if (!this.dropzoneActive) {
       this.dropzoneActive = true;
-      this.dropzoneText = 'Drop your track here';
     } else {
       this.openFileSelector();
     }
@@ -64,6 +68,17 @@ export class AppComponent implements OnInit {
     this.trackName = name.substring(0, name.length - 4); // remove file extension form name
   }
 
+  toggleAudio() {
+    if (this.isPlaying) {
+      // console.log(this.player.buffer)
+      this.player.stop();
+      this.isPlaying = false;
+    } else {
+      this.player.start();
+      this.isPlaying = true;
+    }
+  }
+
   playAudio() {
 
     this.setTrackName(this.file.name);
@@ -84,6 +99,9 @@ export class AppComponent implements OnInit {
         this.player = new Tone.Player(audioBuffer).toMaster();
         this.player.playbackRate = 0.8;
         this.player.start();
+        this.isPlaying = true;
+        this.ref.detectChanges();
+        console.log(this.isPlaying);
       });
     };
 
