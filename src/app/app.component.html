@@ -5,15 +5,28 @@
 
     <div id="dropzone"
       appFileDrop
+      (click)="onDropzoneClick()"
       (fileDropped)="handleDrop($event)"
       (fileHovered)="dropzoneState($event)"
-      [ngClass]="{'hover': dropzoneActive, 'active': selectedFile }"
+      (fileInvalid)="dropzoneFileState($event)"
+      [ngClass]="{'hover': dropzoneHover, 'inactive': !dropzoneActive }"
       >
-      {{ dropText }}
+
+      <!-- Drop instructions -->
+      <div id="dropzone-instruction-wrapper" *ngIf="dropzoneActive">
+        <h2 class="dropzone-heading">Drop your track here</h2>
+        <h4 id="dropzone-instructions">Or click to select a file</h4>
+      </div>
+
+      <h2 class="dropzone-heading" *ngIf="!dropzoneActive">Click to select new track</h2>
+
+      <!-- Error message for wrong file type selection -->
+      <h6 id="dropzone-error" *ngIf="dropzoneInvalid">Incorrect file. Please select an MP3 or WAV file.</h6>
+
     </div>
 
 
-    <div id="controls" [ngClass]="{'active': selectedFile}">
+    <div id="controls" [ngClass]="{'active': file }">
       <h1 id="track-title">{{ trackName }}</h1>
     </div>
 

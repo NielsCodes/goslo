@@ -25,20 +25,34 @@ html, body
 
 
     #dropzone
-      flex: 1
+      flex: 4
       border: 2px dashed #666
       height: 100%
       display: flex
+      flex-direction: column
       align-items: center
       justify-content: center
       transition: all .2s ease
       padding: 20px 0
+      margin-bottom: 100px
+      user-select: none
+
+      &:hover
+        cursor: pointer
 
       &.hover
         border: 2px solid #fff
 
-      &.active
+      &.inactive
         flex: 0
+        margin-bottom: 0
+
+      #dropzone-instruction-wrapper
+        text-align: center
+        line-height: 1.5
+
+      #dropzone-error
+        margin-top: 20px
 
 
     #controls
@@ -46,12 +60,12 @@ html, body
       display: flex
       align-items: center
       justify-content: center
-      padding: 100px
       opacity: 0
       user-select: none
       transition: all .2s ease
 
       &.active
+        padding: 100px
         flex: 1
         opacity: 1
         user-select: auto

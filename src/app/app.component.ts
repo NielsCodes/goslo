@@ -12,28 +12,67 @@ export class AppComponent implements OnInit {
   buffer;
   player;
 
-  selectedFile: File;
-  dropzoneActive = false;
-
-  dropText = 'Drop your track here';
+  file: File;
+  dropzoneHover = false;
+  dropzoneActive = true;
+  dropzoneInvalid = false;
   trackName: string;
 
   ngOnInit() {  }
 
   handleDrop(file: File) {
-    this.selectedFile = file;
-    this.useAudio();
-    this.dropText = file.name;
-    this.trackName = file.name;
+    this.file = file;
+    this.playAudio();
   }
 
   dropzoneState($event: boolean) {
-    this.dropzoneActive = $event;
+    this.dropzoneHover = $event;
   }
 
-  useAudio() {
+  dropzoneFileState($event: boolean) {
+    this.dropzoneInvalid = $event;
+  }
 
-    this.player = null;
+  onDropzoneClick() {
+
+    if (!this.dropzoneActive) {
+      this.dropzoneActive = true;
+      this.dropzoneText = 'Drop your track here';
+    } else {
+      this.openFileSelector();
+    }
+
+  }
+
+  openFileSelector() {
+    const fileSelector = document.createElement('input');
+    fileSelector.type = 'file';
+    fileSelector.accept = 'audio/mpeg, audio/wave';
+
+    // Set selectedfile to first chosen file from file selector
+    fileSelector.onchange = () => {
+      this.dropzoneInvalid = false;
+      const file = fileSelector.files[0];
+      this.file = file;
+      this.playAudio();
+    };
+
+    fileSelector.click();
+  }
+
+  setTrackName(name: string) {
+    this.trackName = name.substring(0, name.length - 4); // remove file extension form name
+  }
+
+  playAudio() {
+
+    this.setTrackName(this.file.name);
+    this.dropzoneActive = false;
+
+    // If a player instance already exists, it is disposed.
+    if (this.player) {
+      this.player.dispose();
+    }
 
     // const selectedFile = (document.getElementById('audio-input') as HTMLInputElement).files[0];
     const reader = new FileReader();
@@ -48,7 +87,7 @@ export class AppComponent implements OnInit {
       });
     };
 
-    reader.readAsArrayBuffer(this.selectedFile);
+    reader.readAsArrayBuffer(this.file);
 
   }
 

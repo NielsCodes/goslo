@@ -7,6 +7,7 @@ export class FileDropDirective {
 
 @Output() fileDropped = new EventEmitter<File>();
 @Output() fileHovered = new EventEmitter<boolean>();
+@Output() fileInvalid  = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -16,7 +17,16 @@ export class FileDropDirective {
       $event.preventDefault();
 
       const transfer = $event.dataTransfer;
-      this.fileDropped.emit(transfer.files[0]);
+
+      const file = transfer.files[0];
+
+      if (file.name.endsWith('.mp3') || file.name.endsWith('.wav')) {
+        this.fileDropped.emit(transfer.files[0]);
+        this.fileInvalid.emit(false);
+      } else {
+        this.fileInvalid.emit(true);
+      }
+
       this.fileHovered.emit(false);
     }
 
