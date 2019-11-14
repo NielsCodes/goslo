@@ -13,9 +13,10 @@ export class AppComponent implements OnInit {
   player;
 
   selectedFile: File;
-  dropZoneActive = false;
+  dropzoneActive = false;
 
   dropText = 'Drop your track here';
+  trackName: string;
 
   ngOnInit() {  }
 
@@ -23,10 +24,11 @@ export class AppComponent implements OnInit {
     this.selectedFile = file;
     this.useAudio();
     this.dropText = file.name;
+    this.trackName = file.name;
   }
 
   dropzoneState($event: boolean) {
-    this.dropZoneActive = $event;
+    this.dropzoneActive = $event;
   }
 
   useAudio() {

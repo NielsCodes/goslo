@@ -23,20 +23,39 @@ html, body
     display: flex
     flex-direction: column
 
-    #drop-container
-      flex: 1
 
-      #dropzone
-        border: 2px dashed #666
-        height: 100%
-        display: flex
-        align-items: center
-        justify-content: center
+    #dropzone
+      flex: 1
+      border: 2px dashed #666
+      height: 100%
+      display: flex
+      align-items: center
+      justify-content: center
+      transition: all .2s ease
+      padding: 20px 0
+
+      &.hover
+        border: 2px solid #fff
+
+      &.active
+        flex: 0
+
 
     #controls
       flex: 0
+      display: flex
+      align-items: center
+      justify-content: center
+      padding: 100px
+      opacity: 0
+      user-select: none
+      transition: all .2s ease
+
+      &.active
+        flex: 1
+        opacity: 1
+        user-select: auto
 
     #logo-container
       font-size: 10em
       text-align: center
-      padding-top: 100px
