@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "nielskersic-goslo"
+  },
+  "targets": {
+    "nielskersic-goslo": {
+      "hosting": {
+        "goslo": [
+          "nielskersic-goslo"
+        ]
+      }
+    }
+  }
+}
